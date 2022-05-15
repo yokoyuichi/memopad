@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>あなたの筋トレ記録サイト</title>
+<script src="js/jquery-2.1.3.min.js"></script>
+<link rel="stylesheet" href="css/form.css">
+</head>
+<body>
+    
+    <form id="add" method="post">
+        <label>種目追加：</label><br>
+        <input type="text" name = "Training" placeholder="追加したい種目を入力">
+        <input type="submit" id="submission" value="追加">
+    </form>
+    <span id="list"></span>
+
+    <div id="selectbox1">
+        <span id="syumoku1"></span><br>
+        <span id="set1"></span><br>
+        <span id="button1"></span><br>
+        <span id="form1"></span><br>
+    </div>
+    <div id="selectbox2">
+        <span id="syumoku2"></span><br>
+        <span id="set2"></span><br>
+        <span id="button2"></span><br>
+        <span id="form2"></span><br>
+    </div>
+    <div id="selectbox3">
+        <span id="syumoku3"></span><br>
+        <span id="set3"></span><br>
+        <span id="button3"></span><br>
+        <span id="form3"></span><br>
+    </div>    
+    <div id="selectbox4">
+        <span id="syumoku4"></span><br>
+        <span id="set4"></span><br>
+        <span id="button4"></span><br>
+        <span id="form4"></span><br>
+    </div>    
+    <div id="selectbox5">
+        <span id="syumoku5"></span><br>
+        <span id="set5"></span><br>
+        <span id="button5"></span><br>
+        <span id="form5"></span><br>
+    </div>    
+    <div id="selectbox6">
+        <span id="syumoku6"></span><br>
+        <span id="set6"></span><br>
+        <span id="button6"></span><br>
+        <span id="form6"></span><br>
+    </div>    
+    <div id="selectbox7">
+        <span id="syumoku7"></span><br>
+        <span id="set7"></span><br>
+        <span id="button7"></span><br>
+        <span id="form7"></span><br>
+    </div>    
+    <div id="selectbox8">
+        <span id="syumoku8"></span><br>
+        <span id="set8"></span><br>
+        <span id="button8"></span><br>
+        <span id="form8"></span><br>
+    </div>
+
+    <button id="save">
+        保存
+    </button>
+    <p id="back"><a href="./index.html">戻る</a></p>
+<script>
+    //種目の追加
+    $("#submission").on("click", function(){
+        if(typeof localStorage.syumoku === 'undefined'){
+            var syumoku = []
+            syumoku.push($("#add [name=Training]").val())
+            let syumokujson = JSON.stringify(syumoku, undefined, 1)
+            localStorage.setItem("syumoku", syumokujson)
+        }
+        else{
+            var syumokujson_add = localStorage.getItem("syumoku")
+            let syumoku_add = JSON.parse(syumokujson_add)
+            syumoku_add.push($("#add [name=Training]").val())
+            var syumokujson_add2 = JSON.stringify(syumoku_add, undefined, 1)
+            localStorage.syumoku = syumokujson_add2
+        }
+    })
+    var syumoku_json = localStorage.getItem("syumoku")
+    var syumoku_ = JSON.parse(syumoku_json)
+    $("#list").html(`登録済みの種目：${syumoku_}`)
+    //記録項目その１
+        $('#syumoku1').html('<select name="syumoku1">');
+            var syumoku_json = localStorage.getItem("syumoku")
+            var syumoku_ = JSON.parse(syumoku_json)
+            var syumokunum = syumoku_.length
+        for(let i = 0; i<syumokunum; i++){
+            var sel = syumoku_[i]
+            $('#selectbox1 select').append(`<option value=${sel}>${sel}</option>`);
+        }
+        $('#selectbox1 select').prepend(`<option value="種目を選択" selected>種目を選択</option>`);
+        $('#set1').html('<select name="set">');
+            for(let i = 1; i<10; i++){
+            $('#set1 select').append(`<option value=${i}>${i}</option>`);
+            }
+        $('#set1').append('セット');
+        $("#button1").html('<button name = "button">入力開始</button>');
+    //記録項目　その１の入力フォーム
+    $("#button1").on("click", function(){
+       $("#form1").html('<form method="" action = ""> <table　class="c-matrix">')
+        for(let i = 1; i<= $("#set1 [name=set]").val(); i++){
+        $("#form1").append(`<tr><th>${i}セット目：　</th><td>重量：<input type="text" name="weight${i}" size="3">kg</td><td>　Rep数：<input type="text" name="rep${i}" size="3">回</td><td>　メモ：<input type="text" name="memo${i}"></td><br>`)
+        }
+        $("#form1").append("</table></form>") 
+         })
+
+    //記録項目その2
+    $('#syumoku2').html('<select name="syumoku2">');
+            var syumoku_json = localStorage.getItem("syumoku")
+            var syumoku_ = JSON.parse(syumoku_json)
+            var syumokunum = syumoku_.length
+        for(let i = 0; i<syumokunum; i++){
+            var sel = syumoku_[i]
+            $('#selectbox2 select').append(`<option value=${sel}>${sel}</option>`);
+        }
+        $('#selectbox2 select').prepend(`<option value="種目を選択" selected>種目を選択</option>`);
+        $('#set2').html('<select name="set">');
+            for(let i = 1; i<10; i++){
+            $('#set2 select').append(`<option value=${i}>${i}</option>`);
+            }
+        $('#set2').append('セット');
+        $("#button2").html('<button name = "button">入力開始</button>');
+    //記録項目　その2の入力フォーム
+    $("#button2").on("click", function(){
+       $("#form2").html('<form method="" action = ""> <table　class="c-matrix">')
+        for(let i = 1; i<= $("#set2 [name=set]").val(); i++){
+        $("#form2").append(`<tr><th>${i}セット目：　</th><td>重量：<input type="text" name="weight${i}" size="3">kg</td><td>　Rep数：<input type="text" name="rep${i}" size="3">回</td><td>　メモ：<input type="text" name="memo${i}"></td><br>`)
+        }
+        $("#form2").append("</table></form>") 
+        })
+    //記録項目その3
+    $('#syumoku3').html('<select name="syumoku3">');
+            var syumoku_json = localStorage.getItem("syumoku")
+            var syumoku_ = JSON.parse(syumoku_json)
+            var syumokunum = syumoku_.length
+        for(let i = 0; i<syumokunum; i++){
+            var sel = syumoku_[i]
+            $('#selectbox3 select').append(`<option value=${sel}>${sel}</option>`);
+        }
+        $('#selectbox3 select').prepend(`<option value="種目を選択" selected>種目を選択</option>`);
+        $('#set3').html('<select name="set">');
+            for(let i = 1; i<10; i++){
+            $('#set3 select').append(`<option value=${i}>${i}</option>`);
+            }
+        $('#set3').append('セット');
+        $("#button3").html('<button name = "button">入力開始</button>');
+    //記録項目　その3の入力フォーム
+    $("#button3").on("click", function(){
+       $("#form3").html('<form method="" action = ""> <table　class="c-matrix">')
+        for(let i = 1; i<= $("#set3 [name=set]").val(); i++){
+        $("#form3").append(`<tr><th>${i}セット目：　</th><td>重量：<input type="text" name="weight${i}" size="3">kg</td><td>　Rep数：<input type="text" name="rep${i}" size="3">回</td><td>　メモ：<input type="text" name="memo${i}"></td><br>`)
+        }
+        $("#form3").append("</table></form>") 
+        })
+    //記録項目その4
+    $('#syumoku4').html('<select name="syumoku4">');
+            var syumoku_json = localStorage.getItem("syumoku")
+            var syumoku_ = JSON.parse(syumoku_json)
+            var syumokunum = syumoku_.length
+        for(let i = 0; i<syumokunum; i++){
+            var sel = syumoku_[i]
+            $('#selectbox4 select').append(`<option value=${sel}>${sel}</option>`);
+        }
+        $('#selectbox4 select').prepend(`<option value="種目を選択" selected>種目を選択</option>`);
+        $('#set4').html('<select name="set">');
+            for(let i = 1; i<10; i++){
+            $('#set4 select').append(`<option value=${i}>${i}</option>`);
+            }
+        $('#set4').append('セット');
+        $("#button4").html('<button name = "button">入力開始</button>');
+    //記録項目　その4の入力フォーム
+    $("#button4").on("click", function(){
+       $("#form4").html('<form method="" action = ""> <table　class="c-matrix">')
+        for(let i = 1; i<= $("#set4 [name=set]").val(); i++){
+        $("#form4").append(`<tr><th>${i}セット目：　</th><td>重量：<input type="text" name="weight${i}" size="3">kg</td><td>　Rep数：<input type="text" name="rep${i}" size="3">回</td><td>　メモ：<input type="text" name="memo${i}"></td><br>`)
+        }
+        $("#form4").append("</table></form>") 
+        })
+    //記録項目その5
+    $('#syumoku5').html('<select name="syumoku5">');
+            var syumoku_json = localStorage.getItem("syumoku")
+            var syumoku_ = JSON.parse(syumoku_json)
+            var syumokunum = syumoku_.length
+        for(let i = 0; i<syumokunum; i++){
+            var sel = syumoku_[i]
+            $('#selectbox5 select').append(`<option value=${sel}>${sel}</option>`);
+        }
+        $('#selectbox5 select').prepend(`<option value="種目を選択" selected>種目を選択</option>`);
+        $('#set5').html('<select name="set">');
+            for(let i = 1; i<10; i++){
+            $('#set5 select').append(`<option value=${i}>${i}</option>`);
+            }
+        $('#set5').append('セット');
+        $("#button5").html('<button name = "button">入力開始</button>');
+    //記録項目　その5の入力フォーム
+    $("#button5").on("click", function(){
+       $("#form5").html('<form method="" action = ""> <table　class="c-matrix">')
+        for(let i = 1; i<= $("#set5 [name=set]").val(); i++){
+        $("#form5").append(`<tr><th>${i}セット目：　</th><td>重量：<input type="text" name="weight${i}" size="3">kg</td><td>　Rep数：<input type="text" name="rep${i}" size="3">回</td><td>　メモ：<input type="text" name="memo${i}"></td><br>`)
+        }
+        $("#form5").append("</table></form>") 
+        })
+    //記録項目その6
+    $('#syumoku6').html('<select name="syumoku6">');
+            var syumoku_json = localStorage.getItem("syumoku")
+            var syumoku_ = JSON.parse(syumoku_json)
+            var syumokunum = syumoku_.length
+        for(let i = 0; i<syumokunum; i++){
+            var sel = syumoku_[i]
+            $('#selectbox6 select').append(`<option value=${sel}>${sel}</option>`);
+        }
+        $('#selectbox6 select').prepend(`<option value="種目を選択" selected>種目を選択</option>`);
+        $('#set6').html('<select name="set">');
+            for(let i = 1; i<10; i++){
+            $('#set6 select').append(`<option value=${i}>${i}</option>`);
+            }
+        $('#set6').append('セット');
+        $("#button6").html('<button name = "button">入力開始</button>');
+    //記録項目　その6の入力フォーム
+    $("#button6").on("click", function(){
+       $("#form6").html('<form method="" action = ""> <table　class="c-matrix">')
+        for(let i = 1; i<= $("#set6 [name=set]").val(); i++){
+        $("#form6").append(`<tr><th>${i}セット目：　</th><td>重量：<input type="text" id="weight${i}" size="3">kg</td><td>　Rep数：<input type="text" name="rep${i}" size="3">回</td><td>　メモ：<input type="text" name="memo${i}"></td><br>`)
+        }
+        $("#form6").append("</table></form>") 
+        })
+    //記録項目その7
+    $('#syumoku7').html('<select name="syumoku7">');
+            var syumoku_json = localStorage.getItem("syumoku")
+            var syumoku_ = JSON.parse(syumoku_json)
+            var syumokunum = syumoku_.length
+        for(let i = 0; i<syumokunum; i++){
+            var sel = syumoku_[i]
+            $('#selectbox7 select').append(`<option value=${sel}>${sel}</option>`);
+        }
+        $('#selectbox7 select').prepend(`<option value="種目を選択" selected>種目を選択</option>`);
+        $('#set7').html('<select name="set">');
+            for(let i = 1; i<10; i++){
+            $('#set7 select').append(`<option value=${i}>${i}</option>`);
+            }
+        $('#set7').append('セット');
+        $("#button7").html('<button name = "button">入力開始</button>');
+    //記録項目　その7の入力フォーム
+    $("#button7").on("click", function(){
+       $("#form7").html('<form method="" action = ""> <table　class="c-matrix">')
+        for(let i = 1; i<= $("#set7 [name=set]").val(); i++){
+        $("#form7").append(`<tr><th>${i}セット目：　</th><td>重量：<input type="text" name="weight${i}" size="3">kg</td><td>　Rep数：<input type="text" name="rep${i}" size="3">回</td><td>　メモ：<input type="text" name="memo${i}"></td><br>`)
+        }
+        $("#form7").append("</table></form>") 
+        })
+    //記録項目その8
+    $('#syumoku8').html('<select name="syumoku8">');
+            var syumoku_json = localStorage.getItem("syumoku")
+            var syumoku_ = JSON.parse(syumoku_json)
+            var syumokunum = syumoku_.length
+        for(let i = 0; i<syumokunum; i++){
+            var sel = syumoku_[i]
+            $('#selectbox8 select').append(`<option value=${sel}>${sel}</option>`);
+        }
+        $('#selectbox8 select').prepend(`<option value="種目を選択" selected>種目を選択</option>`);
+        $('#set8').html('<select name="set">');
+            for(let i = 1; i<10; i++){
+            $('#set8 select').append(`<option value=${i}>${i}</option>`);
+            }
+        $('#set8').append('セット');
+        $("#button8").html('<button name = "button">入力開始</button>');
+    //記録項目　その8の入力フォーム
+    $("#button8").on("click", function(){
+       $("#form8").html('<form method="" action = ""> <table　class="c-matrix">')
+        for(let i = 1; i<= $("#set8 [name=set]").val(); i++){
+        $("#form8").append(`<tr><th>${i}セット目：　</th><td>重量：<input type="text" name="weight${i}" size="3">kg</td><td>　Rep数：<input type="text" name="rep${i}" size="3">回</td><td>　メモ：<input type="text" name="memo${i}"></td><br>`)
+        }
+        $("#form8").append("</table></form>") 
+        })
+
+    //保存
+    $("#save").on("click", function(){
+        alert("保存しました。")
+        if($("#syumoku1 [name=syumoku1]").val()!="種目を選択"){
+        //種目
+          let syumoku_1 = $("#syumoku1 [name=syumoku1]").val()
+        //セット番号, セットごとの重量, Rep数, メモの内容
+        record1 = []
+        record1[0] = syumoku_1
+        for(let i = 1; i<= $("#set1 [name=set]").val(); i++){
+            record1.push ([$(`#form1 [name=weight${i}]`).val(), $(`#form1 [name=rep${i}]`).val(), $(`#form1 [name=memo${i}]`).val()])
+        }
+        }
+        if($("#syumoku2 [name=syumoku2]").val()!="種目を選択"){
+        //種目
+          let syumoku_2 = $("#syumoku2 [name=syumoku2]").val()
+        //セット番号, セットごとの重量, Rep数, メモの内容
+        record2 = []
+        record2[0] = syumoku_2
+        for(let i = 1; i<= $("#set2 [name=set]").val(); i++){
+            record2.push ([$(`#form2 [name=weight${i}]`).val(), $(`#form2 [name=rep${i}]`).val(), $(`#form2 [name=memo${i}]`).val()])
+        }
+        }
+        if($("#syumoku3 [name=syumoku3]").val()!="種目を選択"){
+        //種目
+          let syumoku_3 = $("#syumoku3 [name=syumoku3]").val()
+        //セット番号, セットごとの重量, Rep数, メモの内容
+        record3 = []
+        record3[0] = syumoku_3
+        for(let i = 1; i<= $("#set3 [name=set]").val(); i++){
+            record3.push ([$(`#form3 [name=weight${i}]`).val(), $(`#form3 [name=rep${i}]`).val(), $(`#form3 [name=memo${i}]`).val()])
+        }
+        }
+        if($("#syumoku4 [name=syumoku4]").val()!="種目を選択"){
+        //種目
+          let syumoku_4 = $("#syumoku4 [name=syumoku4]").val()
+        //セット番号, セットごとの重量, Rep数, メモの内容
+        record4 = []
+        record4[0] = syumoku_4
+        for(let i = 1; i<= $("#set4 [name=set]").val(); i++){
+            record4.push ([$(`#form4 [name=weight${i}]`).val(), $(`#form4 [name=rep${i}]`).val(), $(`#form4 [name=memo${i}]`).val()])
+        }
+        }
+        if($("#syumoku5 [name=syumoku5]").val()!="種目を選択"){
+        //種目
+          let syumoku_5 = $("#syumoku5 [name=syumoku5]").val()
+        //セット番号, セットごとの重量, Rep数, メモの内容
+        record5 = []
+        record5[0] = syumoku_5
+        for(let i = 1; i<= $("#set5 [name=set]").val(); i++){
+            record5.push ([$(`#form5 [name=weight${i}]`).val(), $(`#form5 [name=rep${i}]`).val(), $(`#form5 [name=memo${i}]`).val()])
+        }
+        }
+        if($("#syumoku6 [name=syumoku6]").val()!="種目を選択"){
+        //種目
+          let syumoku_6 = $("#syumoku6 [name=syumoku6]").val()
+        //セット番号, セットごとの重量, Rep数, メモの内容
+        record6 = []
+        record6[0] = syumoku_6
+        for(let i = 1; i<= $("#set6 [name=set]").val(); i++){
+            record6.push ([$(`#form6 [name=weight${i}]`).val(), $(`#form6 [name=rep${i}]`).val(), $(`#form6 [name=memo${i}]`).val()])
+        }
+        }
+        if($("#syumoku7 [name=syumoku7]").val()!="種目を選択"){
+        //種目
+          let syumoku_7 = $("#syumoku7 [name=syumoku7]").val()
+        //セット番号, セットごとの重量, Rep数, メモの内容
+        record7 = []
+        record7[0] = syumoku_7
+        for(let i = 1; i<= $("#set7 [name=set]").val(); i++){
+            record7.push ([$(`#form7 [name=weight${i}]`).val(), $(`#form7 [name=rep${i}]`).val(), $(`#form7 [name=memo${i}]`).val()])
+        }
+        }
+        if($("#syumoku8 [name=syumoku8]").val()!="種目を選択"){
+        //種目
+          let syumoku_8 = $("#syumoku8 [name=syumoku8]").val()
+        //セット番号, セットごとの重量, Rep数, メモの内容
+        record8 = []
+        record8[0] = syumoku_8
+        for(let i = 1; i<= $("#set8 [name=set]").val(); i++){
+            record8.push ([$(`#form8 [name=weight${i}]`).val(), $(`#form8 [name=rep${i}]`).val(), $(`#form8 [name=memo${i}]`).val()])
+        }
+        }
+        let record = []
+        if(typeof record1 != "undefined"){
+            record.push(record1)
+        }
+        if(typeof record2 != "undefined"){
+            record.push(record2)
+        }
+        if(typeof record3 != "undefined"){
+            record.push(record3)
+        }
+        if(typeof record4 != "undefined"){
+            record.push(record4)
+        }
+        if(typeof record5 != "undefined"){
+            record.push(record5)
+        }
+        if(typeof record6 != "undefined"){
+            record.push(record6)
+        }
+        if(typeof record7 != "undefined"){
+            record.push(record7)
+        }
+        if(typeof record8 != "undefined"){
+            record.push(record8)
+        }
+        console.log(record1)
+        let jsonrecord = JSON.stringify(record, undefined, 1)
+        localStorage.setItem(localStorage.getItem("date"), jsonrecord)
+  })
+</script>    
+</body>
+</html>

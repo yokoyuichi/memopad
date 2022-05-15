@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>あなたの筋トレ記録サイト</title>
+<script src="js/jquery-2.1.3.min.js"></script>
+<link rel="stylesheet" href="css/sample.css">
+<link href="https://fonts.googleapis.com/earlyaccess/kokoro.css" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <h1>あなたの筋トレ記録サイト</h1>
+        <h2>筋トレの全てがここに。</h2>
+    </header>
+    <div id="mainbg">
+        <img src="kinnikun.png" alt="きんにくん">
+    </div>
+
+    <div id="date">
+        トレーニング日：
+        <span id="year_pulldown"></span>
+        <span id="month_pulldown"></span>
+        <span id="day_pulldown"></span>
+    </div>
+    <div id="button">
+        <button id="submit"><a href="./Form.html">記録画面へ</a></button>
+    </div>
+        <div id="activity">
+        <p id="selectdate">↓　過去のトレーニングはこちらから　↓</p>
+            <div id="period">
+                <div id="date_act">
+                    <span id="year_start"></span>
+                    <span id="month_start"></span>
+                    <span id="day_start"></span>
+                </div>
+                <div id="nyoro"><p id="moji">   ~   </p></div>
+                <div id="date_act2">
+                    <span id="year_end"></span>
+                    <span id="month_end"></span>
+                    <span id="day_end"></span>
+                </div>
+            </div>
+    </div>
+        <div id = "databutton">
+          <div id="show"><p id="sh">表示</p></div>
+          <div id="reset"><p id="res">消去</p></div>
+        </div>
+        <span id="table"></span>
+        <footer id="footer">aaa</footer>
+<script>
+    // 現在日時
+    var current = new Date();
+    var year_val = current.getFullYear();
+    var month_val = current.getMonth() + 1;
+    var day_val = current.getDate();
+  $(function() {
+
+  // プルダウン生成
+  $('#year_pulldown').html('<select name="year">');
+  for (var i = 2000; i <= year_val + 1; i++) {
+    $('#year_pulldown select').append('<option value="' + i + '">' + i + '</option>');
+  }
+
+  $('#year_pulldown').append('年');
+
+  $('#month_pulldown').html('<select name="month">');
+  for (var i = 1; i <= 9; i++) {
+    $('#month_pulldown select').append('<option value="' + "0" + i + '">' + "0" + i + '</option>');
+  }
+  for (var i = 10; i <= 12; i++) {
+    $('#month_pulldown select').append('<option value="' + i + '">' + i + '</option>');
+  }
+  $('#month_pulldown').append('月');
+  
+  $('#day_pulldown').html('<select name="day">');
+  for (var i = 1; i <= 9; i++) {
+    $('#day_pulldown select').append('<option value="' + "0" + i + '">' + "0" + i + '</option>');
+  }
+  for (var i = 10; i <= 31; i++) {
+    $('#day_pulldown select').append('<option value="' + i + '">' + i + '</option>');
+  }
+  $('#day_pulldown').append('日');
+  
+  // デフォルト
+  $('select[name=year] option[value=' + year_val + ']').prop('selected', true);
+});
+   
+    $("#submit").on("click", function(){
+      var yearsub = $("[name=year]").val()
+      var monthsub = $("[name=month]").val()
+      var daysub = $("[name=day]").val()
+      localStorage.setItem("date", yearsub+monthsub+daysub)
+    })
+
+
+    //セレクトボックス（時期選択）
+  // プルダウン生成
+  $('#year_start').html('<select name="year_start">');
+  for (var i = 2000; i <= year_val + 1; i++) {
+    $('#year_start select').append('<option value="' + i + '">' + i + '</option>');
+  }
+
+  $('#year_start').append('年');
+
+  $('#month_start').html('<select name="month_start">');
+  for (var i = 1; i <= 9; i++) {
+    $('#month_start select').append('<option value="' + "0" + i + '">' + "0" + i + '</option>');
+  }
+  for (var i = 10; i <= 12; i++) {
+    $('#month_start select').append('<option value=' + i + '>' + i + '</option>');
+  }
+  $('#month_start').append('月');
+  
+  $('#day_start').html('<select name="day_start">');
+  for (var i = 1; i <= 9; i++) {
+    $('#day_start select').append('<option value="' + "0" + i + '">' + "0" + i + '</option>');
+  }
+  for (var i = 10; i <= 31; i++) {
+    $('#day_start select').append('<option value="' + i + '">' + i + '</option>');
+  }
+  $('#day_start').append('日');
+
+  $('select[name=year_start] option[value=' + year_val + ']').prop('selected', true);
+  $('select[name=month_start] option[value=' + month_val + ']').prop('selected', true); 
+
+  ;
+  // プルダウン生成
+  $('#year_end').html('<select name="year_end">');
+  for (var i = 2000; i <= year_val + 1; i++) {
+    $('#year_end select').append('<option value="' + i + '">' + i + '</option>');
+  }
+
+  $('#year_end').append('年');
+
+  $('#month_end').html('<select name="month_end">');
+  for (var i = 1; i <= 9; i++) {
+    $('#month_end select').append('<option value="' + "0" + i + '">' + "0" + i + '</option>');
+  }
+  for (var i = 10; i <= 12; i++) {
+    $('#month_end select').append('<option value="' + i + '">' + i + '</option>');
+  }
+  $('#month_end').append('月');
+  
+  $('#day_end').html('<select name="day_end">');
+  for (var i = 1; i <= 9; i++) {
+    $('#day_end select').append('<option value="' + "0" + i + '">' + "0" + i + '</option>');
+  }
+  for (var i = 10; i <= 31; i++) {
+    $('#day_end select').append('<option value="' + i + '">' + i + '</option>');
+  }
+  $('#day_end').append('日');
+  $('select[name=year_end] option[value=' + year_val + ']').prop('selected', true);
+
+    $("#show").on("click", function(){
+    //startdateとenddateを抽出
+    var yearstart = $("[name=year_start]").val()
+    var monthstart = $("[name=month_start]").val()
+    var daystart = $("[name=day_start]").val()
+    var startdate = yearstart + monthstart + daystart
+    var yearend = $("[name=year_end]").val()
+    var monthend = $("[name=month_end]").val()
+    var dayend = $("[name=day_end]").val()
+    var enddate = yearend + monthend + dayend
+    //データ取得1, pastdataが過去のアクティビティ
+    pastdata = []
+    for(let i = startdate; i<=enddate; i++){
+      if(localStorage.getItem(i) !== null){
+      var json = localStorage.getItem(i)
+      var jsondata = JSON.parse(json)
+      jsondata.unshift(i)
+      pastdata.push(jsondata)
+      }
+    }
+    console.log(pastdata)
+
+    $("#table").html("<ul>")
+      for(let i = 1; i<=pastdata.length; i++){
+      $("#table").append(`<li id=${i}>${String(pastdata[i-1][0]).substr(0, 4)}年${String(pastdata[i-1][0]).substr(4, 2)}月${String(pastdata[i-1][0]).substr(6, 2)}日：`)
+      for(let j = 1; j<=`${pastdata[i-1].length-1}`; j++){
+        $(`#${i}`).append(`${pastdata[i-1][j][0]} ${pastdata[i-1][j].length-1}セット；`)
+      }
+      $(`#${i}`).append("</li>")
+    }
+    $("#table").append("</ul>")
+   })
+
+    $("#reset").on("click", function(){
+      if(window.confirm('本当に今までの記録を削除しますか？')){
+        localStorage.clear()
+    }
+    else{
+    　  window.alert('キャンセルしました'); 
+    }
+    })
+
+    let meigen = ["筋トレは人生の教科書　byなかやまきんに君 ", "パワー！！！", "全ては筋肉のため　byなかやまきんに君", "僕は朝の「プロテイン」は一番大切だと言いたい　byなかやまきんに君", "筋トレは間違いない、こんなにかっこいいものはない　byなかやまきんに君"]
+    let count = Math.floor(Math.random()*meigen.length)
+    $('#footer').html (meigen[count])
+</script>
+
+</body>
+</html>
